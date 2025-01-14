@@ -18,14 +18,25 @@ function getComputerChoice() {
     let randomNumber = Math.floor(Math.random() * 3);
 
     if (randomNumber === 0) {
-        choice = "Rock";
+        choice = "rock";
     } else if (randomNumber === 1) {
-        choice = "Paper";
+        choice = "paper";
     } else {
-        choice = "Scissors";
+        choice = "scissors";
     }
 
     return choice;
 }
 
 
+// Human choice
+// Create function getHumanChoice
+// Create variable to store choice
+// Create prompt to gather user's choice
+// Store user's response in choice variable
+// Return choice
+
+function getHumanChoice() {
+    let choice = prompt("rock, paper, or scissors?");
+    return choice;
+}
