@@ -1,3 +1,16 @@
+// Score variables
+let humanScore = 0;
+let computerScore = 0;
+
+// Event listeners
+const buttonList = document.querySelectorAll(".rps-btn");
+buttonList.forEach((button) => {
+    button.addEventListener("click", (e) => {
+        const choice = e.target.textContent;
+        playRound(choice, getComputerChoice());
+    });
+});
+
 function getComputerChoice() {
     let choice;
     // Randomly generate a 0, 1, or 2
@@ -14,48 +27,47 @@ function getComputerChoice() {
     return choice;
 }
 
-function getHumanChoice() {
-    let choice = prompt("rock, paper, or scissors?");
-    return choice;
-}
+function playRound(humanChoice, computerChoice) {
+    humanChoice = humanChoice.toLowerCase();
+    const roundResult = document.querySelector(".round-result");
+    const humanScoreboard = document.querySelector(".human-score");
+    const computerScoreboard = document.querySelector(".computer-score");
 
-function playGame() {
-    // Score Variables
-    let humanScore = 0;
-    let computerScore = 0;
-
-    function playRound(humanChoice, computerChoice) {
-        humanChoice = humanChoice.toLowerCase();
-
-        if (humanChoice === computerChoice) {
-            console.log("It's a tie! Play again.");
-            playRound(getHumanChoice(), getComputerChoice());
-        } else if (humanChoice === "rock" && computerChoice === "paper") {
-            console.log("You lose! Paper beats Rock.");
-            computerScore += 1;
-        } else if (humanChoice === "rock" && computerChoice === "scissors") {
-            console.log("You Win! Rock beats Scissors.");
-            humanScore += 1;
-        } else if (humanChoice === "paper" && computerChoice === "rock") {
-            console.log("You win! Paper beats Rock.");
-            humanScore += 1;
-        } else if (humanChoice === "paper" && computerChoice === "scissors") {
-            console.log("You lose! Scissors beats Paper.");
-            computerScore += 1;
-        } else if (humanChoice === "scissors" && computerChoice === "rock") {
-            console.log("You lose! Rock beats Scissors.");
-            computerScore += 1;
-        } else {
-            console.log("You win! Scissors beats Paper.");
-            humanScore += 1;
-        }
+    if (humanChoice === computerChoice) {
+        roundResult.textContent = "It's a tie! Play again.";
+    } else if (humanChoice === "rock" && computerChoice === "paper") {
+        roundResult.textContent = "You lose! Paper beats Rock.";
+        computerScore += 1;
+        computerScoreboard.textContent = computerScore;
+    } else if (humanChoice === "rock" && computerChoice === "scissors") {
+        roundResult.textContent = "You Win! Rock beats Scissors.";
+        humanScore += 1;
+        humanScoreboard.textContent = humanScore;
+    } else if (humanChoice === "paper" && computerChoice === "rock") {
+        roundResult.textContent = "You win! Paper beats Rock.";
+        humanScore += 1;
+        humanScoreboard.textContent = humanScore;
+    } else if (humanChoice === "paper" && computerChoice === "scissors") {
+        roundResult.textContent = "You lose! Scissors beats Paper.";
+        computerScore += 1;
+        computerScoreboard.textContent = computerScore;
+    } else if (humanChoice === "scissors" && computerChoice === "rock") {
+        roundResult.textContent = "You lose! Rock beats Scissors.";
+        computerScore += 1;
+        computerScoreboard.textContent = computerScore;
+    } else {
+        roundResult.textContent = "You win! Scissors beats Paper.";
+        humanScore += 1;
+        humanScoreboard.textContent = humanScore;
     }
 
-    // for (let i = 0; i < 5; i++) {
-    //     playRound(getHumanChoice(), getComputerChoice());
-    // }
-
-    console.log(humanScore > computerScore ? `You won the game! ${humanScore} to ${computerScore}` : `You lost the game! ${computerScore} to ${humanScore}`);
+    if (humanScore === 5 || computerScore === 5) {
+        roundResult.textContent = humanScore > computerScore ?
+            `You won the game! ${humanScore} to ${computerScore}. Want to play again?` :
+            `You lost the game! ${computerScore} to ${humanScore}. Want to play again?`;
+        humanScore = 0;
+        computerScore = 0;
+        humanScoreboard.textContent = "0";
+        computerScoreboard.textContent = "0";
+    }
 }
-
-// playGame();
